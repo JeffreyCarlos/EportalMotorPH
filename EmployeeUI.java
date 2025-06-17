@@ -15,9 +15,7 @@ import java.util.List;
  */
 
 public class EmployeeUI extends JFrame {
-    private JTextField txtId, txtFirst, txtLast, txtBday, txtAdd, txtPhone, txtSss, txtPhilhealth, 
-                       txtTin, txtPagibig, txtStatus, txtPos, txtSup, txtBasicSal, txtRiceSub, 
-                       txtPhoneAllow, txtClothing, txtGrossSemi, txtHourlyRate;
+    private JTextField txtId, txtFirst, txtLast;
 
     private JTable employeeTable;
     private DefaultTableModel tableModel;
@@ -27,6 +25,7 @@ public class EmployeeUI extends JFrame {
         setSize(700, 500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridBagLayout());
+        
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5, 5, 5, 5);
@@ -50,11 +49,13 @@ public class EmployeeUI extends JFrame {
         JButton btnAdd = new JButton("Add");
         JButton btnUpdate = new JButton("Update");
         JButton btnDelete = new JButton("Delete");
+        JButton btnViewSalary = new JButton("ViewSalary");
 
         buttonPanel.add(btnView);
         buttonPanel.add(btnAdd);
         buttonPanel.add(btnUpdate);
         buttonPanel.add(btnDelete);
+        buttonPanel.add(btnViewSalary);
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -63,16 +64,24 @@ public class EmployeeUI extends JFrame {
 
         add(formPanel);
 
-        // Setup JTable
-        String[] columnNames = {
-            "Emp ID", "First Name", "Last Name", "Birthday", "Address", "Phone Number", 
-            "SSS #", "Philhealth #", "TIN #", "Pagibig #", "Status", "Position", "Immediate Supervisor", 
-            "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance", "Gross Semi-Monthly Rate", "Hourly Rate"
-        };
+       // Setup JTable
+    String[] columnNames = {
+          "Emp ID", "First Name", "Last Name", "Birthday", "Address", "Phone Number",
+          "SSS #", "Philhealth #", "TIN #", "Pagibig #", "Status", "Position", "Immediate Supervisor",
+          "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance", "Gross Semi-Monthly Rate", "Hourly Rate"
+};
 
-        tableModel = new DefaultTableModel(columnNames, 0);
-        employeeTable = new JTable(tableModel);
-        JScrollPane tableScrollPane = new JScrollPane(employeeTable);
+    // Override DefaultTableModel to prevent editing
+        tableModel = new DefaultTableModel(columnNames, 0) {
+         @Override
+public boolean isCellEditable(int row, int column) {
+        return false; // Prevent editing in the table
+    }
+};
+
+employeeTable = new JTable(tableModel);
+JScrollPane tableScrollPane = new JScrollPane(employeeTable);
+
 
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -84,7 +93,10 @@ public class EmployeeUI extends JFrame {
 
         // Button Actions
         btnView.addActionListener(e -> viewEmployees());
-
+        
+        btnViewSalary.addActionListener(e -> new SalaryViewer());
+        
+        
         btnAdd.addActionListener(e -> {
             EmployeeForm employeeForm = new EmployeeForm();
             employeeForm.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -93,6 +105,7 @@ public class EmployeeUI extends JFrame {
                     viewEmployees(); // Refresh the table after closing the form
                 }
             });
+            
         });
 
         // **Updated "Update" Button**
@@ -110,7 +123,12 @@ public class EmployeeUI extends JFrame {
 
         btnDelete.addActionListener(e -> deleteEmployee());
 
+
+            
+        
+        
         setVisible(true);
+        
     }
 
     private void addComponent(JPanel panel, GridBagConstraints gbc, JComponent component, int x, int y) {
@@ -137,6 +155,8 @@ public class EmployeeUI extends JFrame {
                 e.getPhoneAllowance(), e.getClothingAllowance(), e.getGrossSemiMonthlyRate(),
                 e.getHourlyRate()
             });
+            
+            
         }
     }
     
