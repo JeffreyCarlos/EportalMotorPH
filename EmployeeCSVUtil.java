@@ -65,12 +65,20 @@ public class EmployeeCSVUtil {
 
     public static void updateEmployee(String empId, String newFirst, String newLast) {
         List<Employee> list = readEmployees();
+        boolean found = false;
         for (Employee e : list) {
             if (e.getEmpId().equals(empId)) {
                 e.setFirstName(newFirst);
                 e.setLastName(newLast);
+                found = true;
+                break; //Exit loop once found
             }
         }
+        if (!found) {
+                System.out.println("Employee ID not found during update!");
+        }
+        
+        
         writeEmployees(list);
     }
 
