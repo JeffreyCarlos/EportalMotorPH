@@ -13,7 +13,7 @@ import java.util.Random;
 
 /**
  *
- * @author basil
+ * @author 
  */
 public class EmployeeUI extends JFrame {
     private JComboBox<String> empIdComboBox;
@@ -219,26 +219,14 @@ public class EmployeeUI extends JFrame {
         }
 
         StringBuilder details = new StringBuilder();
-        details.append("Employee ID* ").append(employee.getEmpId()).append("\n")
-               .append("First Name* ").append(employee.getFirstName()).append("\n")
-               .append("Last Name* ").append(employee.getLastName()).append("\n")
-               .append("Birthday* ").append(employee.getBirthday()).append("\n")
-               .append("Address* ").append(employee.getAddress()).append("\n")
-               .append("Phone Number: ").append(employee.getPhonenumber()).append("\n")
-               .append("SSS #: ").append(employee.getsssId()).append("\n")
-               .append("Philhealth #: ").append(employee.getphilhealthId()).append("\n")
-               .append("TIN #: ").append(employee.gettinId()).append("\n")
-               .append("Pagibig #: ").append(employee.getpagibigId()).append("\n")
-               .append("Status: ").append(employee.getStatus()).append("\n")
-               .append("Position: ").append(employee.getPosition()).append("\n")
-               .append("Immediate Supervisor: ").append(employee.getImmediateSupervisor()).append("\n")
-               .append("Basic Salary: ").append(employee.getBasicSalary()).append("\n")
-               .append("Rice Subsidy: ").append(employee.getRicesubsidy()).append("\n")
-               .append("Phone Allowance: ").append(employee.getPhoneAllowance()).append("\n")
-               .append("Clothing Allowance: ").append(employee.getClothingAllowance()).append("\n")
-               .append("Gross Semi-Monthly Rate: ").append(employee.getGrossSemiMonthlyRate()).append("\n")
-               .append("Hourly Rate: ").append(employee.getHourlyRate());
-
+        StringBuilder append = details.append("Employee ID* ").append(employee.getEmpId()).append("\n")
+                .append("First Name* ").append(employee.getFirstName()).append("\n")
+                .append("Last Name* ").append(employee.getLastName()).append("\n")
+                .append("SSS *: ").append(employee.getsssId()).append("\n")
+                .append("Philhealth *: ").append(employee.getphilhealthId()).append("\n")
+                .append("TIN *: ").append(employee.gettinId()).append("\n")
+                .append("Pagibig *: ").append(employee.getpagibigId()).append("\n");
+                
         JTextArea textArea = new JTextArea(details.toString());
         textArea.setEditable(false);
         textArea.setLineWrap(true);
